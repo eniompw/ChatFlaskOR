@@ -7,7 +7,6 @@ A simple Flask-based web chat application that connects to AI models through Ope
 - 🤖 Chat with GPT-3.5-turbo via OpenRouter
 - 💬 Clean, modern chat interface
 - 🎨 Beautiful gradient UI design
-- 📜 Real-time conversation history
 - ⚡ Fast and lightweight
 
 ## Prerequisites
