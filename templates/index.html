@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenRouter Chat</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea, #764ba2); min-height: 100vh; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; margin: 0 0 20px; color: #333; }
+        #chat-box { height: 400px; overflow-y: auto; background: #f9f9f9; border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 15px; }
+        #chat-box p { margin: 8px 0; padding: 8px; border-radius: 5px; }
+        #chat-box p strong { color: #667eea; }
+        #chat-box p:nth-child(odd) { background: #e8f0fe; }
+        #chat-box p:nth-child(even) { background: #f0e8fe; }
+        .input-group { display: flex; gap: 10px; }
+        #message { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button:hover { background: #764ba2; }
+        button:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chat with AI</h1>
+        <div id="chat-box"></div>
+        <div class="input-group">
+            <input type="text" id="message" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById('message').value;
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message: message})
+            });
+            const data = await response.json();
+            document.getElementById('chat-box').innerHTML += 
+                `<p><strong>You:</strong> ${message}</p>
+                 <p><strong>AI:</strong> ${data.response}</p>`;
+            document.getElementById('message').value = '';
+        }
+        
+        document.getElementById('message').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
