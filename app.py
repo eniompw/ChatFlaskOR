@@ -25,7 +25,7 @@ def index():
 def chat():
     try:
         response = client.chat.completions.create(
-            model="openai/gpt-3.5-turbo",
+            model="tngtech/deepseek-r1t2-chimera:free",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": request.json.get('message')}
